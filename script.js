@@ -1,16 +1,15 @@
-const arrow = document.querySelector(".arrow");
-const speed = document.querySelector(".speed-value");
+const arrow = document.querySelector(".arrow")
+const speedElement = document.querySelector(".speed-value")
+const footer = document.querySelector("footer")
 
 navigator.geolocation.watchPosition(
   (data) => {
-    // console.log(data.coords.longitude);
-    // console.log(data.coords.latitude);
-    // console.log(data.coords.speed);
-    // console.log(data.coords.heading);
-    speed.textContent = data.coords.speed;
-    arrow.style.transform = `rotate(${data.coords.heading}deg)`;
+
+    const { speed, altitude, heading } = data.coords
+
+    speedElement.textContent = speed?.toFixed(2)
+    arrow.style.transform = `rotate(${heading}deg)`
+    footer.textContent = altitude ? `${altitude} meters above sea level` : ''
   },
-  (err) => {
-    console.error(err);
-  }
-);
+  console.error
+)
